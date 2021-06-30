@@ -133,7 +133,7 @@ public class FriendHomeFragment extends BaseFragment {
                     mFriendHomeRecyclerAdapter.notifyDataSetChanged();
                 }
             };
-            handler.postDelayed(runnable,1500);
+            handler.postDelayed(runnable,15+00);
 
         });
 

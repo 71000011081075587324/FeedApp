@@ -2,18 +2,16 @@ package com.uestc.myapplication.Adapter;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.Parcelable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.uestc.myapplication.R;
 import com.uestc.myapplication.bean.HomeArticleBean;
-import com.uestc.myapplication.ui.activity.ItemDetailActivity;
+import com.uestc.myapplication.ui.activity.HomeFriendDetailActivity;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -41,7 +39,6 @@ public class FriendHomeRecyclerAdapter extends RecyclerView.Adapter<FriendHomeRe
     //为子项绑定数据
     @Override
     public void onBindViewHolder(@NonNull @NotNull FriendHomeRecyclerAdapter.FriendViewHolder holder, int position) {
-        holder.mTvTest.setText("set_test" + mDatas.get(position).getTestString());
 
     }
 
@@ -51,22 +48,19 @@ public class FriendHomeRecyclerAdapter extends RecyclerView.Adapter<FriendHomeRe
     }
 
     static class FriendViewHolder extends RecyclerView.ViewHolder{
-        private TextView mTvTest;
 
         public FriendViewHolder(@NonNull @NotNull View itemView) {
             super(itemView);
             initView();
 
             itemView.setOnClickListener(v->{
-                itemView.getContext().startActivity(new Intent(itemView.getContext(), ItemDetailActivity.class));
+                itemView.getContext().startActivity(new Intent(itemView.getContext(), HomeFriendDetailActivity.class));
             });
 
         }
 
         public void initView(){
-            mTvTest = itemView.findViewById(R.id.tv_test);
         }
-
     }
 
 }

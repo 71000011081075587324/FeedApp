@@ -9,7 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Feedapp">
-        <activity android:name=".ui.activity.ItemDetailActivity"></activity>
+        <activity android:name=".ui.activity.HomeFriendDetailActivity"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".ui.activity.MainActivity"
             android:screenOrientation="portrait" />

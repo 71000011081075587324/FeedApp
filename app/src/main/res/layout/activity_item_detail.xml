@@ -4,27 +4,69 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.activity.ItemDetailActivity"
+    tools:context=".ui.activity.HomeFriendDetailActivity"
     android:orientation="vertical">
 
-    <View
+    <RelativeLayout
+        android:id="@+id/rlTileOfWeiBoFullView"
         android:layout_width="match_parent"
-        android:layout_height="10dp"
-        android:background="#f2f2f2"/>
-
-    <ImageView
-        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/uestc_picture_1"
-        android:layout_gravity="center_horizontal"
-        android:layout_margin="15dp"
-        />
+        android:layout_alignParentTop="true"
+        android:background="#0D9F9C9C"
+        android:gravity="center_vertical"
+        android:padding="10dp">
+
+
+        <ImageButton
+            android:id="@+id/btnExit"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:scaleType="centerCrop"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/exit"
+            android:background="#00000000">
+
+        </ImageButton>
+
+
+        <TextView
+            android:id="@+id/tvWeiBoZhenWen"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:text="微博正文"
+            android:textColor="@color/black"
+            android:textSize="20dp">
+
+        </TextView>
+
+        <ImageButton
+            android:id="@+id/btnMore"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:scaleType="centerCrop"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/more"
+            android:background="#00000000">
+
+        </ImageButton>
+
+    </RelativeLayout>
 
     <View
         android:layout_width="match_parent"
         android:layout_height="10dp"
-        android:background="#f2f2f2"/>
+        android:background="#f2f2f2" />
 
-    
+    <include layout="@layout/layout_text_home_friend_detail"
+        android:layout_weight="1"
+        android:layout_width="match_parent"
+        android:layout_height="0dp" />
+
+
+    <include layout="@layout/layout_bottom_home_friend_detail" />
 
 </LinearLayout>
