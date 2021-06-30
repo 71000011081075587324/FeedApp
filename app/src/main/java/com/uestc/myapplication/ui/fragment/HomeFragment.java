@@ -27,7 +27,7 @@ import java.util.List;
 public class HomeFragment extends BaseFragment implements HomeContract.IHomeView {
 
     private HomeContract.IHomePresenter mHomePresenter = null;
-    private static final int VIEWPAGERCOUNT = 2;
+    private final int VIEWPAGERCOUNT = 2;
 
     ViewPager mViewPager;
     TabLayout mTabLayout;

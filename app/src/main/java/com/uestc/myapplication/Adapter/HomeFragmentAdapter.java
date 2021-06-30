@@ -6,6 +6,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 import androidx.viewpager.widget.PagerTitleStrip;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
@@ -17,7 +18,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
-public class HomeFragmentAdapter extends FragmentStatePagerAdapter {
+public class HomeFragmentAdapter extends FragmentPagerAdapter {
     private List<BaseFragment> mFragments;
     private List<String> mTitles;
 
@@ -46,8 +47,18 @@ public class HomeFragmentAdapter extends FragmentStatePagerAdapter {
         return mTitles.get(position);
     }
 
+
+    //保存ViewPager中Fragment的状态
+    @Nullable
+    @org.jetbrains.annotations.Nullable
     @Override
     public Parcelable saveState() {
-        return null;
+        return super.saveState();
+    }
+
+    //恢复ViewPager和Fragment的状态
+    @Override
+    public void restoreState(@Nullable @org.jetbrains.annotations.Nullable Parcelable state, @Nullable @org.jetbrains.annotations.Nullable ClassLoader loader) {
+        super.restoreState(state, loader);
     }
 }

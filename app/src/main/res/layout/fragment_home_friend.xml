@@ -1,25 +1,23 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:id="@+id/fg_home_friend">
+    android:id="@+id/rl_fragment_home_friend">
 
-    <FrameLayout
+    <!--smartRefreshLayout里面的第一个view是hearder ，第二个是列表， 第三个view代表底部。如果里面只有一个view，那就是列表-->
+    <com.scwang.smartrefresh.layout.SmartRefreshLayout
+        android:id="@+id/smartreference_layout_home_friend"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"/>
+        android:layout_height="match_parent">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="此页面为: 关注页面"
-        android:textSize="30dp"/>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_view_home_friend"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            />
 
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1.3"/>
+    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
 
 
-</LinearLayout>
+
+</RelativeLayout>

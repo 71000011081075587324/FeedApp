@@ -40,5 +40,9 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
 
+    // https://mvnrepository.com/artifact/com.scwang.smartrefresh/SmartRefreshLayout
+    implementation group: 'com.scwang.smartrefresh', name: 'SmartRefreshLayout', version: '1.1.0-andx-14'    //1.0.5及以前版本的老用户升级需谨慎，API改动过大
+    // https://mvnrepository.com/artifact/com.scwang.smartrefresh/SmartRefreshHeader
+    implementation group: 'com.scwang.smartrefresh', name: 'SmartRefreshHeader', version: '1.1.0-andx-14'   //没有使用特殊Header，可以不加这行
 
 }

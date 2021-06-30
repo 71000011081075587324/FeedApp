@@ -2,17 +2,31 @@ package com.uestc.myapplication.ui.fragment;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.uestc.myapplication.Adapter.FriendHomeRecyclerAdapter;
 import com.uestc.myapplication.R;
 import com.uestc.myapplication.base.fragment.BaseFragment;
+import com.uestc.myapplication.bean.HomeArticleBean;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class FriendHomeFragment extends BaseFragment {
+    private RecyclerView mRecyclerView;
+    private List<HomeArticleBean.ArticleData> mDatas;
+    private FriendHomeRecyclerAdapter mFriendHomeRecyclerAdapter;
+    private SmartRefreshLayout mSmartRefreshLayout;
+
     public FriendHomeFragment(Context context){
         mContext = context;
     }
@@ -48,12 +62,87 @@ public class FriendHomeFragment extends BaseFragment {
     @Override
     public View initView() {
         mView = View.inflate(mContext, R.layout.fragment_home_friend,null);
+        mDatas = new ArrayList<HomeArticleBean.ArticleData>();
+
+        mFriendHomeRecyclerAdapter = new FriendHomeRecyclerAdapter(mContext,mDatas);
+        mRecyclerView = mView.findViewById(R.id.recycler_view_home_friend);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(mContext));
+        mRecyclerView.setAdapter(mFriendHomeRecyclerAdapter);
+
+        initRefresh();
+
+        //测试用数据
+        for(int i = 0; i < 15; i++){
+            mDatas.add(new HomeArticleBean.ArticleData(i + "--" + i));
+        }
+
+        if(!isDataInit()){
+            dataInit();
+        }
+
         return mView;
+    }
+
+    private void initRefresh(){
+        mSmartRefreshLayout = mView.findViewById(R.id.smartreference_layout_home_friend);
+
+        //设置 Header 样式
+//        mSmartRefreshLayout.setRefreshHeader();
+
+        //设置 Footer 样式
+//        mSmartRefreshLayout.setRefreshFooter();
+
+        //下拉刷新
+        mSmartRefreshLayout.setOnRefreshListener(refreshLayout -> {
+            refreshLayout.autoRefresh();
+
+            for(int i = 0; i < 15; i++){
+                mDatas.add(i ,new HomeArticleBean.ArticleData("refresh" + i + "--" + i));
+            }
+
+//            dataInit();
+
+            Handler handler = new Handler();
+            Runnable runnable = new Runnable() {
+                @Override
+                public void run() {
+                    refreshLayout.finishRefresh();
+                    mFriendHomeRecyclerAdapter.notifyDataSetChanged();
+                }
+            };
+            handler.postDelayed(runnable,1500);
+
+
+        });
+
+        //上拉加载更多
+        mSmartRefreshLayout.setOnLoadMoreListener(refreshLayout -> {
+            refreshLayout.autoLoadMore();
+
+            for(int i = 0; i < 15; i++){
+                mDatas.add(new HomeArticleBean.ArticleData("refresh" + i + "--" + i));
+            }
+
+//            dataInit();
+
+            Handler handler = new Handler();
+            Runnable runnable = new Runnable() {
+                @Override
+                public void run() {
+                    refreshLayout.finishLoadMore();
+                    mFriendHomeRecyclerAdapter.notifyDataSetChanged();
+                }
+            };
+            handler.postDelayed(runnable,1500);
+
+        });
+
     }
 
     @Override
     public void dataInit() {
 
+        mFriendHomeRecyclerAdapter.notifyDataSetChanged();
     }
 
     @Override
