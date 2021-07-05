@@ -53,20 +53,20 @@
             android:textColor="@android:color/holo_blue_dark"
             android:textSize="10sp" />
 
-<!--        <Button-->
-<!--            android:id="@+id/btn_follow"-->
-<!--            android:layout_width="70dp"-->
-<!--            android:layout_height="40dp"-->
-<!--            android:layout_below="@id/iv_dog"-->
-<!--            android:layout_alignParentEnd="true"-->
-<!--            android:layout_alignParentRight="true"-->
-<!--            android:layout_marginTop="-40dp"-->
-<!--            android:layout_marginEnd="17dp"-->
-<!--            android:background="@drawable/button_friend"-->
-<!--            android:text="+关注"-->
-<!--            android:layout_marginRight="-10dp"-->
-<!--            android:textColor="@android:color/holo_orange_dark"-->
-<!--            android:textSize="12sp" />-->
+        <!--        <Button-->
+        <!--            android:id="@+id/btn_follow"-->
+        <!--            android:layout_width="70dp"-->
+        <!--            android:layout_height="40dp"-->
+        <!--            android:layout_below="@id/iv_dog"-->
+        <!--            android:layout_alignParentEnd="true"-->
+        <!--            android:layout_alignParentRight="true"-->
+        <!--            android:layout_marginTop="-40dp"-->
+        <!--            android:layout_marginEnd="17dp"-->
+        <!--            android:background="@drawable/button_friend"-->
+        <!--            android:text="+关注"-->
+        <!--            android:layout_marginRight="-10dp"-->
+        <!--            android:textColor="@android:color/holo_orange_dark"-->
+        <!--            android:textSize="12sp" />-->
 
         <ToggleButton
             android:id="@+id/btn_follow"
@@ -94,14 +94,14 @@
 
     </RelativeLayout>
 
-    <TextView
+    <com.uestc.myapplication.Custom.TailTextView
+        android:id="@+id/ttv_text"
         android:padding="15dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/tv_text"
-        android:textColor="@color/black"
-        android:text="微博文字内容微博文字内容微博文字内容微博文字内容微博文字内容微博文字内容微博文字内容微博文字内容微博文字内容微博文字内容微博文字内容微博文字内容微博文字内容微博文字内容微博文字内容微博文字内容微博文字内容微博文字内容微博文字"
-        android:textSize="16sp" />
+        android:text="微博文字内容微博文字内容微博文字内容微博文字内容微博文字内容微博文字内容微博文字内容微博文字内容微博文字内容微博文字内容微博文字内容微博文字内容微博文字内容微博文字内容微博文字内容微博文字内容微博文字内容微博文字内容微博文字微博文字内容微博文字内容微博文字内容微博文字内容微博文字内容微博文字内容微博文字内容微博文字内容微博文字内容微博文字内容微博文字内容微博文字内容微博文字内容微博文字内容微博文字内容微博文字内容微博文字内容微博文字内容微博文字"
+        android:textSize="16sp"
+        android:maxLines="7" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view_image"

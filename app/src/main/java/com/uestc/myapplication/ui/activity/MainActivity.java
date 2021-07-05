@@ -13,6 +13,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
 import com.uestc.myapplication.R;
+import com.uestc.myapplication.base.activity.BaseActivity;
 import com.uestc.myapplication.base.fragment.BaseFragment;
 import com.uestc.myapplication.base.presenter.BasePresenter;
 import com.uestc.myapplication.base.ui.BaseView;
@@ -25,7 +26,7 @@ import com.uestc.myapplication.ui.fragment.MessageFragment;
 
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseActivity{
     private RadioGroup rgMain;
     private RadioButton rbtnHome;
     private RadioButton rbtnFind;

@@ -12,8 +12,9 @@ import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 
 import com.uestc.myapplication.R;
+import com.uestc.myapplication.base.activity.BaseActivity;
 
-public class SplashActivity extends AppCompatActivity {
+public class SplashActivity extends BaseActivity {
     private ImageView ivHi;
 
     @Override

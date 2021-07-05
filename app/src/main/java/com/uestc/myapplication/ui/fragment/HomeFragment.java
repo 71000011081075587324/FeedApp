@@ -8,18 +8,13 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
-import androidx.viewpager2.adapter.FragmentStateAdapter;
 
 import com.google.android.material.tabs.TabLayout;
 import com.uestc.myapplication.Adapter.HomeFragmentAdapter;
 import com.uestc.myapplication.R;
 import com.uestc.myapplication.base.fragment.BaseFragment;
 import com.uestc.myapplication.contract.Home.HomeContract;
-
-import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,8 +24,8 @@ public class HomeFragment extends BaseFragment implements HomeContract.IHomeView
     private HomeContract.IHomePresenter mHomePresenter = null;
     private final int VIEWPAGERCOUNT = 2;
 
-    ViewPager mViewPager;
-    TabLayout mTabLayout;
+    private ViewPager mViewPager;
+    private TabLayout mTabLayout;
 
     public HomeFragment(Context context){
         mContext = context;
@@ -39,8 +34,8 @@ public class HomeFragment extends BaseFragment implements HomeContract.IHomeView
     @Override
     protected View initView() {
         List<BaseFragment> fragments = new ArrayList<BaseFragment>();
-        fragments.add(new FriendHomeFragment(mContext));
-        fragments.add(new RecommendHomeFragment(mContext));
+        fragments.add(new HomeFriendFragment(mContext));
+        fragments.add(new HomeRecommendFragment(mContext));
 
         mView = View.inflate(mContext, R.layout.fragment_home,null);
 
@@ -54,7 +49,6 @@ public class HomeFragment extends BaseFragment implements HomeContract.IHomeView
         }
 
         mViewPager = mView.findViewById(R.id.view_pager_home);
-
         HomeFragmentAdapter mFragmentStateAdapter = new HomeFragmentAdapter(getChildFragmentManager(), fragments, titles);
         mViewPager.setAdapter(mFragmentStateAdapter);
         mTabLayout.setupWithViewPager(mViewPager);

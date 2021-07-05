@@ -2,18 +2,29 @@ package com.uestc.myapplication.ui.fragment;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import com.uestc.myapplication.Adapter.HomeDetailCommentAdapter;
 import com.uestc.myapplication.R;
 import com.uestc.myapplication.base.fragment.BaseFragment;
 
-public class RecommendHomeFragment extends BaseFragment {
-    public RecommendHomeFragment(Context context){
+import org.jetbrains.annotations.NotNull;
+
+public class DetailCommentFragment extends BaseFragment {
+    private RecyclerView mRecyclerView;
+    private HomeDetailCommentAdapter mHomeDetailCommentAdapter;
+
+
+    public DetailCommentFragment(Context context){
         mContext = context;
     }
 
@@ -47,7 +58,14 @@ public class RecommendHomeFragment extends BaseFragment {
 
     @Override
     protected View initView() {
-        mView = View.inflate(mContext, R.layout.fragment_home_recommend,null);
+        mView = View.inflate(mContext, R.layout.fragment_home_detail_comment,null);
+
+        mHomeDetailCommentAdapter = new HomeDetailCommentAdapter(mContext);
+        mRecyclerView = mView.findViewById(R.id.recycler_view_home_detail_comment);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(mContext));
+        mRecyclerView.setAdapter(mHomeDetailCommentAdapter);
+        mHomeDetailCommentAdapter.notifyDataSetChanged();
+
         return mView;
     }
 
@@ -65,4 +83,7 @@ public class RecommendHomeFragment extends BaseFragment {
     public void setPresenter(Object presenter) {
 
     }
+
+
+
 }

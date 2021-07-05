@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <include layout="@layout/layout_text_home_friend"/>
+
+
+
+<!--    <FrameLayout-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        >-->
+
+        <ImageView
+            android:id="@+id/iv_one_item_recycler"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scaleType="fitXY"
+            android:adjustViewBounds="true"
+            android:src="@drawable/uestc_picture_0"
+            android:paddingRight="25dp"
+            android:paddingLeft="25dp"
+            android:paddingBottom="15dp" />
+
+<!--    </FrameLayout>-->
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginLeft="10dp"
+        android:background="#f2f2f2"/>
+
+    <include layout="@layout/layout_bottom_home_friend_item" />
+
+
+
+</LinearLayout>

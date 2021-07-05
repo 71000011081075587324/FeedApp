@@ -13,21 +13,21 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
-import com.uestc.myapplication.Adapter.FriendHomeRecyclerAdapter;
+import com.uestc.myapplication.Adapter.HomeFriendRecyclerAdapter;
 import com.uestc.myapplication.R;
 import com.uestc.myapplication.base.fragment.BaseFragment;
-import com.uestc.myapplication.bean.HomeArticleBean;
+import com.uestc.myapplication.bean.FeedStreamBean;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class FriendHomeFragment extends BaseFragment {
+public class HomeFriendFragment extends BaseFragment {
     private RecyclerView mRecyclerView;
-    private List<HomeArticleBean.ArticleData> mDatas;
-    private FriendHomeRecyclerAdapter mFriendHomeRecyclerAdapter;
+    private List<FeedStreamBean.ArticleData> mDatas;
+    private HomeFriendRecyclerAdapter mFriendHomeRecyclerAdapter;
     private SmartRefreshLayout mSmartRefreshLayout;
 
-    public FriendHomeFragment(Context context){
+    public HomeFriendFragment(Context context){
         mContext = context;
     }
 
@@ -62,9 +62,9 @@ public class FriendHomeFragment extends BaseFragment {
     @Override
     public View initView() {
         mView = View.inflate(mContext, R.layout.fragment_home_friend,null);
-        mDatas = new ArrayList<HomeArticleBean.ArticleData>();
+        mDatas = new ArrayList<FeedStreamBean.ArticleData>();
 
-        mFriendHomeRecyclerAdapter = new FriendHomeRecyclerAdapter(mContext,mDatas);
+        mFriendHomeRecyclerAdapter = new HomeFriendRecyclerAdapter(mContext,mDatas);
         mRecyclerView = mView.findViewById(R.id.recycler_view_home_friend);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(mContext));
         mRecyclerView.setAdapter(mFriendHomeRecyclerAdapter);
@@ -73,7 +73,8 @@ public class FriendHomeFragment extends BaseFragment {
 
         //测试用数据
         for(int i = 0; i < 15; i++){
-            mDatas.add(new HomeArticleBean.ArticleData(i + "--" + i));
+//            mDatas.add(new FeedStreamBean.ArticleData());
+            mDatas.add(null);
         }
 
         if(!isDataInit()){
@@ -97,7 +98,8 @@ public class FriendHomeFragment extends BaseFragment {
             refreshLayout.autoRefresh();
 
             for(int i = 0; i < 15; i++){
-                mDatas.add(i ,new HomeArticleBean.ArticleData("refresh" + i + "--" + i));
+//                mDatas.add(i ,new FeedStreamBean.ArticleData("refresh" + i + "--" + i));
+                mDatas.add(null);
             }
 
 //            dataInit();
@@ -120,7 +122,8 @@ public class FriendHomeFragment extends BaseFragment {
             refreshLayout.autoLoadMore();
 
             for(int i = 0; i < 15; i++){
-                mDatas.add(new HomeArticleBean.ArticleData("refresh" + i + "--" + i));
+//                mDatas.add(new FeedStreamBean.ArticleData("refresh" + i + "--" + i));
+                mDatas.add(null);
             }
 
 //            dataInit();

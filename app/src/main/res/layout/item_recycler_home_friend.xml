@@ -80,7 +80,8 @@
 <!--        android:layout_height="wrap_content"-->
 <!--        />-->
 
-    <include layout="@layout/layout_text_home_friend_detail"/>
+    <include layout="@layout/layout_text_home_friend"/>
+
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
