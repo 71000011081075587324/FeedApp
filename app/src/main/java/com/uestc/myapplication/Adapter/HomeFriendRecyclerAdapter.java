@@ -74,13 +74,14 @@ public class HomeFriendRecyclerAdapter extends RecyclerView.Adapter<RecyclerView
 
     @Override
     public int getItemCount() {
-        return mDatas.size();
+        return 8;
+//        return mDatas.size();
     }
 
     //重写ViewType的返回值
     @Override
     public int getItemViewType(int position) {
-        int size = 1;
+        int size = 8;
         if(size < 2){
             return ONEIMAGE;
         }else{
@@ -117,11 +118,11 @@ public class HomeFriendRecyclerAdapter extends RecyclerView.Adapter<RecyclerView
 
             //设置圆形用户头像
             RequestOptions options = new RequestOptions()
-                    .error(R.drawable.profile_image_1)
-                    .placeholder(R.drawable.profile_image_1)
+                    .error(R.drawable.profile_image_2)
+                    .placeholder(R.drawable.profile_image_2)
                     .transforms(new CircleCrop());
             Glide.with(itemView)
-                    .load(R.drawable.profile_image_1)
+                    .load(R.drawable.profile_image_2)
                     .apply(options)
                     .into(mImageViewProfile);
         }
@@ -160,11 +161,11 @@ public class HomeFriendRecyclerAdapter extends RecyclerView.Adapter<RecyclerView
              mImageViewProfile = itemView.findViewById(R.id.iv_profile);
              //设置圆形用户头像
              RequestOptions options = new RequestOptions()
-                     .error(R.drawable.profile_image_1)
-                     .placeholder(R.drawable.profile_image_1)
+                     .error(R.drawable.profile_image_2)
+                     .placeholder(R.drawable.profile_image_2)
                      .transforms(new CircleCrop());
              Glide.with(itemView)
-                     .load(R.drawable.profile_image_1)
+                     .load(R.drawable.profile_image_2)
                      .apply(options)
                      .into(mImageViewProfile);
 

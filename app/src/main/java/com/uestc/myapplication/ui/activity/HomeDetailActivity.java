@@ -163,9 +163,19 @@ public class HomeDetailActivity extends BaseActivity implements View.OnClickList
         mIncludeOne = findViewById(R.id.include_text_home_friend_one_image);
         mIncludeMore = findViewById(R.id.include_text_home_friend_more_image);
         mImageViewExit = findViewById(R.id.btn_title_bar_exit);
-        tempSize = 1;
+        tempSize = 8;
         if(tempSize < 2){
             mIncludeMore.setVisibility(View.GONE);
+            //设置圆形用户头像
+            mImageViewProfile = findViewById(R.id.iv_profile);
+            RequestOptions options = new RequestOptions()
+                    .error(R.drawable.profile_image_2)
+                    .placeholder(R.drawable.profile_image_2)
+                    .transforms(new CircleCrop());
+            Glide.with(this)
+                    .load(R.drawable.profile_image_2)
+                    .apply(options)
+                    .into(mImageViewProfile);
         }else{
             mIncludeOne.setVisibility(View.GONE);
             mImageRecyclerAdapter = new ImageRecyclerAdapter(this, mImageDatas);
@@ -174,6 +184,17 @@ public class HomeDetailActivity extends BaseActivity implements View.OnClickList
             mRecyclerView.setAdapter(mImageRecyclerAdapter);
             mRecyclerView.setHasFixedSize(true);
             ((SimpleItemAnimator) mRecyclerView.getItemAnimator()).setSupportsChangeAnimations(false);
+
+            //设置圆形用户头像
+            mImageViewProfile = mIncludeMore.findViewById(R.id.iv_profile);
+            RequestOptions options = new RequestOptions()
+                    .error(R.drawable.profile_image_2)
+                    .placeholder(R.drawable.profile_image_2)
+                    .transforms(new CircleCrop());
+            Glide.with(this)
+                    .load(R.drawable.profile_image_2)
+                    .apply(options)
+                    .into(mImageViewProfile);
         }
 
 //        mNestedScrollView = findViewById(R.id.nested_scrollview_detail);
@@ -200,16 +221,16 @@ public class HomeDetailActivity extends BaseActivity implements View.OnClickList
         mTabLayout.setupWithViewPager(mViewPager);
         mTabLayout.setTabsFromPagerAdapter(mHomeDetailFragmentAdapter);
 
-        //设置圆形用户头像
-        mImageViewProfile = mIncludeOne.findViewById(R.id.iv_profile);
-        RequestOptions options = new RequestOptions()
-                .error(R.drawable.profile_image_1)
-                .placeholder(R.drawable.profile_image_1)
-                .transforms(new CircleCrop());
-        Glide.with(this)
-                .load(R.drawable.profile_image_1)
-                .apply(options)
-                .into(mImageViewProfile);
+//        //设置圆形用户头像
+//        mImageViewProfile = findViewById(R.id.iv_profile);
+//        RequestOptions options = new RequestOptions()
+//                .error(R.drawable.profile_image_2)
+//                .placeholder(R.drawable.profile_image_2)
+//                .transforms(new CircleCrop());
+//        Glide.with(this)
+//                .load(R.drawable.profile_image_2)
+//                .apply(options)
+//                .into(mImageViewProfile);
 
 
     }
@@ -232,7 +253,6 @@ public class HomeDetailActivity extends BaseActivity implements View.OnClickList
     public void onClick(View v) {
         switch (v.getId()){
              case R.id.btn_title_bar_exit:
-                 Log.e(getClass().getSimpleName(),"点击了");
                 finish();
                 break;
         }

@@ -37,7 +37,7 @@ public class HomeDetailCommentAdapter extends RecyclerView.Adapter<HomeDetailCom
 
     @Override
     public int getItemCount() {
-        return 10;
+        return 30;
     }
 
     static class DetailCommentViewHolder extends RecyclerView.ViewHolder {

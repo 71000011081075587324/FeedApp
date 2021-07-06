@@ -67,10 +67,10 @@
 
 
 
-    <androidx.core.widget.NestedScrollView
+    <com.uestc.myapplication.Custom.NestedScrollLayout
         android:id="@+id/nested_scrollview_detail"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:layout_weight="1"
         android:fillViewport="true">
 
@@ -81,15 +81,17 @@
             android:orientation="vertical"
             android:layout_weight="1">
 
-            <include android:id="@+id/include_text_home_friend_more_image" layout="@layout/layout_text_home_friend_detail" />
-
             <include android:id="@+id/include_text_home_friend_one_image" layout="@layout/layout_text_home_friend_detail_one_image"/>
+
+            <include android:id="@+id/include_text_home_friend_more_image" layout="@layout/layout_text_home_friend_detail" />
 
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:fillViewport="true">
+
 
                 <com.google.android.material.tabs.TabLayout
                     android:id="@+id/tab_layout_home_detail"
@@ -100,7 +102,7 @@
                 <androidx.viewpager.widget.ViewPager
                     android:id="@+id/view_pager_home_detail"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     />
 
             </LinearLayout>
@@ -109,7 +111,7 @@
 
 
 
-    </androidx.core.widget.NestedScrollView>
+    </com.uestc.myapplication.Custom.NestedScrollLayout>
 
 
     <include

@@ -9,6 +9,7 @@
         android:layout_height="wrap_content"
         android:text="这是item_comment"
         android:textSize="25sp"
-        android:gravity="center"/>
+        android:gravity="center"
+        android:textColor="@color/black"/>
 
 </RelativeLayout>
