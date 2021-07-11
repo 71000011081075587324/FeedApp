@@ -15,13 +15,13 @@ import com.uestc.myapplication.base.ui.BaseView;
 
 import org.jetbrains.annotations.NotNull;
 
-public abstract class BaseFragment extends Fragment implements BaseView {
+public abstract class BaseFragment extends Fragment {
     protected boolean mDataInit = false;
     protected View mView;
     protected Context mContext;
     protected abstract View initView();
-    public abstract void dataInit();
-    public abstract boolean isDataInit();
+//    public abstract void dataInit();
+//    public abstract boolean isDataInit();
 
     @Override
     public void onAttach(@NonNull @NotNull Context context) {

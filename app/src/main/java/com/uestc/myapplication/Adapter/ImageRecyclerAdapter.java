@@ -20,13 +20,21 @@ import java.util.List;
 
 public class ImageRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private Context mContext;
-    private List<Uri> mImageDatas;
+//    private List<Uri> mImageDatas;
+    private int mImageCount;
 
 
-    public ImageRecyclerAdapter(Context context, List<Uri> ImageData){
+//    public ImageRecyclerAdapter(Context context, List<Uri> ImageData){
+//        mContext = context;
+//        mImageDatas = ImageData;
+//    }
+
+    public ImageRecyclerAdapter(Context context, int imageCount){
         mContext = context;
-        mImageDatas = ImageData;
+        mImageCount = imageCount;
     }
+
+
 
     @NonNull
     @NotNull
@@ -46,7 +54,8 @@ public class ImageRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.View
     @Override
     public int getItemCount() {
 //        return mImageDatas.size();
-        return 8;
+//        return 8;
+        return mImageCount;
     }
 
 

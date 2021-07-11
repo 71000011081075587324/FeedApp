@@ -1,16 +1,18 @@
 package com.uestc.myapplication.bean;
 
+import java.util.List;
+
 public class HomeDetailCommentBean {
 
-    private CommentData data;
+    private List<CommentData> data;
     private int errorCode;
     private String errorMsg;
 
-    public CommentData getData() {
+    public List<CommentData> getData() {
         return data;
     }
 
-    public void setData(CommentData data) {
+    public void setData(List<CommentData> data) {
         this.data = data;
     }
 

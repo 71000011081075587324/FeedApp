@@ -51,19 +51,19 @@ public class FindFragment extends BaseFragment {
         return mView;
     }
 
-    @Override
-    public void dataInit() {
-
-    }
-
-    @Override
-    public boolean isDataInit() {
-        return false;
-    }
-
-    @Override
-    public void setPresenter(Object presenter) {
-
-    }
+//    @Override
+//    public void dataInit() {
+//
+//    }
+//
+//    @Override
+//    public boolean isDataInit() {
+//        return false;
+//    }
+//
+//    @Override
+//    public void setPresenter(Object presenter) {
+//
+//    }
 
 }

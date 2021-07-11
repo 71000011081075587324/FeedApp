@@ -16,16 +16,25 @@ import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.uestc.myapplication.Adapter.HomeFriendRecyclerAdapter;
 import com.uestc.myapplication.R;
 import com.uestc.myapplication.base.fragment.BaseFragment;
+import com.uestc.myapplication.base.presenter.BasePresenter;
 import com.uestc.myapplication.bean.FeedStreamBean;
+import com.uestc.myapplication.contract.Home.HomeFriendContract;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class HomeFriendFragment extends BaseFragment {
+public class HomeFriendFragment extends BaseFragment implements HomeFriendContract.IHomeView{
     private RecyclerView mRecyclerView;
     private List<FeedStreamBean.ArticleData> mDatas;
     private HomeFriendRecyclerAdapter mFriendHomeRecyclerAdapter;
     private SmartRefreshLayout mSmartRefreshLayout;
+
+    private HomeFriendContract.IHomePresenter mIHomePresenter;
+
+//    public HomeFriendFragment(Context context, List<FeedStreamBean.ArticleData> ArticleList){
+//        mContext = context;
+//        mFriendHomeRecyclerAdapter = new HomeFriendRecyclerAdapter(mContext,ArticleList);
+//    }
 
     public HomeFriendFragment(Context context){
         mContext = context;
@@ -45,7 +54,7 @@ public class HomeFriendFragment extends BaseFragment {
     public View onCreateView(@NonNull @org.jetbrains.annotations.NotNull LayoutInflater inflater,
                              @Nullable @org.jetbrains.annotations.Nullable ViewGroup container,
                              @Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
-
+        mIHomePresenter.loadArticle();
         return initView();
     }
 
@@ -62,7 +71,7 @@ public class HomeFriendFragment extends BaseFragment {
     @Override
     public View initView() {
         mView = View.inflate(mContext, R.layout.fragment_home_friend,null);
-        mDatas = new ArrayList<FeedStreamBean.ArticleData>();
+//        mDatas = new ArrayList<FeedStreamBean.ArticleData>();
 
         mFriendHomeRecyclerAdapter = new HomeFriendRecyclerAdapter(mContext,mDatas);
         mRecyclerView = mView.findViewById(R.id.recycler_view_home_friend);
@@ -71,15 +80,15 @@ public class HomeFriendFragment extends BaseFragment {
 
         initRefresh();
 
-        //测试用数据
-        for(int i = 0; i < 15; i++){
-//            mDatas.add(new FeedStreamBean.ArticleData());
-            mDatas.add(null);
-        }
-
-        if(!isDataInit()){
-            dataInit();
-        }
+//        //测试用数据
+//        for(int i = 0; i < 15; i++){
+////            mDatas.add(new FeedStreamBean.ArticleData());
+//            mDatas.add(null);
+//        }
+////
+//        if(!isDataInit()){
+//            dataInit();
+//        }
 
         return mView;
     }
@@ -97,17 +106,20 @@ public class HomeFriendFragment extends BaseFragment {
         mSmartRefreshLayout.setOnRefreshListener(refreshLayout -> {
             refreshLayout.autoRefresh();
 
-            for(int i = 0; i < 15; i++){
-//                mDatas.add(i ,new FeedStreamBean.ArticleData("refresh" + i + "--" + i));
-                mDatas.add(null);
-            }
+//            for(int i = 0; i < 15; i++){
+////                mDatas.add(i ,new FeedStreamBean.ArticleData("refresh" + i + "--" + i));
+//                mDatas.add(null);
+//            }
 
 //            dataInit();
 
+
+            //测试网路延迟
             Handler handler = new Handler();
             Runnable runnable = new Runnable() {
                 @Override
                 public void run() {
+                    mIHomePresenter.refreshTopArticle();
                     refreshLayout.finishRefresh();
                     mFriendHomeRecyclerAdapter.notifyDataSetChanged();
                 }
@@ -121,40 +133,66 @@ public class HomeFriendFragment extends BaseFragment {
         mSmartRefreshLayout.setOnLoadMoreListener(refreshLayout -> {
             refreshLayout.autoLoadMore();
 
-            for(int i = 0; i < 15; i++){
-//                mDatas.add(new FeedStreamBean.ArticleData("refresh" + i + "--" + i));
-                mDatas.add(null);
-            }
+//            for(int i = 0; i < 15; i++){
+////                mDatas.add(new FeedStreamBean.ArticleData("refresh" + i + "--" + i));
+//                mDatas.add(null);
+//            }
 
 //            dataInit();
 
+
+            //测试网路延迟
             Handler handler = new Handler();
             Runnable runnable = new Runnable() {
                 @Override
                 public void run() {
+                    mIHomePresenter.refreshButtomArticle();
                     refreshLayout.finishLoadMore();
                     mFriendHomeRecyclerAdapter.notifyDataSetChanged();
                 }
             };
-            handler.postDelayed(runnable,15+00);
+            handler.postDelayed(runnable,1500);
 
         });
 
     }
 
     @Override
-    public void dataInit() {
-
-        mFriendHomeRecyclerAdapter.notifyDataSetChanged();
+    public void loadArticle(List<FeedStreamBean.ArticleData> articleList) {
+        mDatas = articleList;
     }
 
     @Override
-    public boolean isDataInit() {
-        return false;
+    public void refreshTopArticle(List<FeedStreamBean.ArticleData> articleList) {
+        for(int i = 0; i < articleList.size(); i++){
+            mDatas.add(0,articleList.get(articleList.size() - 1 - i));
+        }
     }
 
     @Override
-    public void setPresenter(Object presenter) {
-
+    public void refreshButtomArticle(List<FeedStreamBean.ArticleData> articleList) {
+        mDatas.addAll(articleList);
     }
+
+    @Override
+    public void setPresenter(BasePresenter presenter) {
+        mIHomePresenter = (HomeFriendContract.IHomePresenter) presenter;
+    }
+
+
+//    @Override
+//    public void dataInit() {
+//
+//        mFriendHomeRecyclerAdapter.notifyDataSetChanged();
+//    }
+//
+//    @Override
+//    public boolean isDataInit() {
+//        return false;
+//    }
+//
+//    @Override
+//    public void setPresenter(Object presenter) {
+//
+//    }
 }

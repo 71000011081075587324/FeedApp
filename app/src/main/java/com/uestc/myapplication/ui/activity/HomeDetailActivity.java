@@ -6,32 +6,34 @@ import androidx.recyclerview.widget.SimpleItemAnimator;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 import androidx.viewpager.widget.ViewPager;
 
-import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.ImageView;
-import android.widget.Toast;
+import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 import com.bumptech.glide.request.RequestOptions;
 import com.google.android.material.tabs.TabLayout;
 import com.uestc.myapplication.Adapter.HomeDetailFragmentAdapter;
+import com.uestc.myapplication.Adapter.HomeFriendRecyclerAdapter;
 import com.uestc.myapplication.Adapter.ImageRecyclerAdapter;
 import com.uestc.myapplication.R;
 import com.uestc.myapplication.base.activity.BaseActivity;
 import com.uestc.myapplication.base.fragment.BaseFragment;
+import com.uestc.myapplication.bean.FeedStreamBean;
 import com.uestc.myapplication.ui.fragment.DetailCommentFragment;
 import com.uestc.myapplication.ui.fragment.DetailPraiseFragment;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class HomeDetailActivity extends BaseActivity implements View.OnClickListener {
     private RecyclerView mRecyclerView;
-    private List<Uri> mImageDatas;
+//    private List<Uri> mImageDatas;
     private ImageRecyclerAdapter mImageRecyclerAdapter;
     private ViewPager mViewPager;
     private TabLayout mTabLayout;
@@ -40,7 +42,13 @@ public class HomeDetailActivity extends BaseActivity implements View.OnClickList
     private ImageView mImageViewProfile;
     private ImageView mImageViewExit;
     private NestedScrollView mNestedScrollView;
-    private int tempSize;
+    private TextView mTextViewName;
+    private TextView mTextViewTime;
+    private TextView mTextViewModel;
+    private TextView mTextViewArticle;
+
+    private FeedStreamBean.ArticleData mDatas;
+    private int mPosition;
 
 //    ViewGroup rlTitle;
 //    ViewGroup rlButtom;
@@ -56,8 +64,8 @@ public class HomeDetailActivity extends BaseActivity implements View.OnClickList
         supportRequestWindowFeature(Window.FEATURE_NO_TITLE);   //去掉系统设置默认标题栏
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_detail);
-        initView();
         initData();
+        initView();
         initClickListener();
 
 //        rlTitle = findViewById(R.id.rl_title_detail);
@@ -155,47 +163,84 @@ public class HomeDetailActivity extends BaseActivity implements View.OnClickList
 //        Log.e(getClass().getSimpleName(),"mView.getMeasuredHeight() :" + mView.getMeasuredHeight());
 //    }
 
-    private void initClickListener(){
-        mImageViewExit.setOnClickListener(this);
+
+    private void initData(){
+        Bundle bundle = getIntent().getBundleExtra("Detail");
+        mDatas = bundle.getParcelable("data");
+        mPosition = bundle.getInt("position");
     }
 
     private void initView(){
         mIncludeOne = findViewById(R.id.include_text_home_friend_one_image);
         mIncludeMore = findViewById(R.id.include_text_home_friend_more_image);
         mImageViewExit = findViewById(R.id.btn_title_bar_exit);
-        tempSize = 8;
-        if(tempSize < 2){
+        mRecyclerView = findViewById(R.id.recycler_view_image);
+
+
+        if(mDatas.getPic_ids().toString().split(",").length < 2){
             mIncludeMore.setVisibility(View.GONE);
-            //设置圆形用户头像
-            mImageViewProfile = findViewById(R.id.iv_profile);
-            RequestOptions options = new RequestOptions()
-                    .error(R.drawable.profile_image_2)
-                    .placeholder(R.drawable.profile_image_2)
-                    .transforms(new CircleCrop());
-            Glide.with(this)
-                    .load(R.drawable.profile_image_2)
-                    .apply(options)
-                    .into(mImageViewProfile);
+            mImageViewProfile = mIncludeOne.findViewById(R.id.iv_profile);
+
+            mTextViewName = findViewById(R.id.tv_name);
+            mTextViewTime = findViewById(R.id.tv_time);
+            mTextViewModel = findViewById(R.id.tv_model);
+            mTextViewArticle = findViewById(R.id.tv_article);
         }else{
             mIncludeOne.setVisibility(View.GONE);
-            mImageRecyclerAdapter = new ImageRecyclerAdapter(this, mImageDatas);
-            mRecyclerView = findViewById(R.id.recycler_view_image);
+            mImageRecyclerAdapter = new ImageRecyclerAdapter(this, mDatas.getPic_ids().toString().split(",").length);
+//            mTextViewArticle = mIncludeMore.findViewById(R.id.tv_article);
             mRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(3,StaggeredGridLayoutManager.VERTICAL));
             mRecyclerView.setAdapter(mImageRecyclerAdapter);
             mRecyclerView.setHasFixedSize(true);
             ((SimpleItemAnimator) mRecyclerView.getItemAnimator()).setSupportsChangeAnimations(false);
 
+            mTextViewName = mIncludeMore.findViewById(R.id.tv_name);
+            mTextViewTime = mIncludeMore.findViewById(R.id.tv_time);
+            mTextViewModel = mIncludeMore.findViewById(R.id.tv_model);
+            mTextViewArticle = mIncludeMore.findViewById(R.id.tv_article);
             //设置圆形用户头像
             mImageViewProfile = mIncludeMore.findViewById(R.id.iv_profile);
-            RequestOptions options = new RequestOptions()
-                    .error(R.drawable.profile_image_2)
-                    .placeholder(R.drawable.profile_image_2)
-                    .transforms(new CircleCrop());
-            Glide.with(this)
-                    .load(R.drawable.profile_image_2)
-                    .apply(options)
-                    .into(mImageViewProfile);
         }
+
+        mTextViewTime.setText(mDatas.getCreated_at());
+        mTextViewName.setText(mDatas.getUser().getScreen_name());
+        mTextViewModel.setText(mDatas.getSource());
+        mTextViewArticle.setText(mDatas.getText());
+
+        RequestOptions options = new RequestOptions()
+                .error(R.drawable.profile_error)
+                .placeholder(R.drawable.profile_error)
+                .transforms(new CircleCrop());
+        switch (mPosition % 4){
+            case 0 :
+                Glide.with(this)
+                        .load(R.drawable.profile_image_0)
+                        .apply(options)
+                        .into(mImageViewProfile);
+                break;
+            case 1:
+                Glide.with(this)
+                        .load(R.drawable.profile_image_1)
+                        .apply(options)
+                        .into(mImageViewProfile);
+//                    ((ImageOneViewHolder) holder).mImageViewProfile.setImageResource(R.drawable.profile_image_1);
+                break;
+            case 2:
+                Glide.with(this)
+                        .load(R.drawable.profile_image_2)
+                        .apply(options)
+                        .into(mImageViewProfile);
+//                    ((ImageOneViewHolder) holder).mImageViewProfile.setImageResource(R.drawable.profile_image_2);
+                break;
+            case 3:
+                Glide.with(this)
+                        .load(R.drawable.profile_image_3)
+                        .apply(options)
+                        .into(mImageViewProfile);
+//                    ((ImageOneViewHolder) holder).mImageViewProfile.setImageResource(R.drawable.profile_image_3);
+                break;
+        }
+
 
 //        mNestedScrollView = findViewById(R.id.nested_scrollview_detail);
 //        mNestedScrollView.setMinimumHeight((int) (getResources().getDisplayMetrics().density * 115 + 0.5f));
@@ -235,18 +280,8 @@ public class HomeDetailActivity extends BaseActivity implements View.OnClickList
 
     }
 
-
-    private void initData(){
-//        mImageDatas = new ArrayList<Uri>();
-
-
-//        Random random = new Random();
-//        mImageDatas.clear();
-//        for(int i = 0; i < random.nextInt(9); i++){
-//            mImageDatas.add(Uri.parse("http://www.test"));
-//        }
-
-//        mImageRecyclerAdapter.notifyDataSetChanged();
+    private void initClickListener(){
+        mImageViewExit.setOnClickListener(this);
     }
 
     @Override

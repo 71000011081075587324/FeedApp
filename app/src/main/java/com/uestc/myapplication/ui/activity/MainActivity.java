@@ -1,14 +1,11 @@
 package com.uestc.myapplication.ui.activity;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.graphics.drawable.Drawable;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.Window;
-import android.view.WindowManager;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
@@ -16,9 +13,8 @@ import com.uestc.myapplication.R;
 import com.uestc.myapplication.base.activity.BaseActivity;
 import com.uestc.myapplication.base.fragment.BaseFragment;
 import com.uestc.myapplication.base.presenter.BasePresenter;
-import com.uestc.myapplication.base.ui.BaseView;
-import com.uestc.myapplication.model.HomeModel;
-import com.uestc.myapplication.presenter.HomePresenter;
+import com.uestc.myapplication.model.HomeFriendModel;
+import com.uestc.myapplication.presenter.HomeFriendPresenter;
 import com.uestc.myapplication.ui.fragment.FindFragment;
 import com.uestc.myapplication.ui.fragment.HomeFragment;
 import com.uestc.myapplication.ui.fragment.MeFragment;
@@ -35,7 +31,7 @@ public class MainActivity extends BaseActivity{
 
     private ArrayList<BaseFragment> mBaseFragments;
     private int mPosition;
-    private HomePresenter mHomePresenter;
+//    private HomeFriendPresenter mHomeFriendPresenter;
 
     private final int HOME_POSITION = 0;
     private final int FIND_POSITION = 1;
@@ -130,22 +126,23 @@ public class MainActivity extends BaseActivity{
     private void setFragment(){
         FragmentManager fragmentManager =  getSupportFragmentManager();  //得到fragmentManager
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.fl_main,getBasePager());
+//        fragmentTransaction.replace(R.id.fl_main,getBasePager());
+        fragmentTransaction.replace(R.id.fl_main,mBaseFragments.get(mPosition));
         fragmentTransaction.commit();
     }
 
-    public BaseFragment getBasePager() {
-        BaseFragment baseFragment = mBaseFragments.get(mPosition);
-        if(!baseFragment.isDataInit()){
-            HomeModel homeModel = HomeModel.getInstance();
-            BasePresenter basePresenter = null;
-            if(baseFragment instanceof HomeFragment){
-                basePresenter = new HomePresenter(homeModel, (HomeFragment)baseFragment);
-            }
-            baseFragment.setPresenter(basePresenter);
-        }
-
-        return baseFragment;
-    }
+//    public BaseFragment getBasePager() {
+//        BaseFragment baseFragment = mBaseFragments.get(mPosition);
+//        if(!baseFragment.isDataInit()){
+//            HomeFriendModel homeFriendModel = HomeFriendModel.getInstance();
+//            BasePresenter basePresenter = null;
+//            if(baseFragment instanceof HomeFragment){
+//                basePresenter = new HomeFriendPresenter(homeFriendModel, (HomeFragment)baseFragment);
+//            }
+//            baseFragment.setPresenter(basePresenter);
+//        }
+//
+//        return baseFragment;
+//    }
 
 }

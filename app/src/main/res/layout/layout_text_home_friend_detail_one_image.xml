@@ -2,37 +2,32 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical">
-
-<!--    <include layout="@layout/layout_text_home_friend_detail"/>-->
+    android:orientation="vertical"
+    android:paddingTop="15dp"
+    android:paddingLeft="15dp"
+    android:paddingRight="15dp"
+    android:paddingBottom="5dp">
 
     <include layout="@layout/layout_home_text_top"/>
 
     <TextView
+        android:id="@+id/tv_article"
         android:padding="15dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/tv_text"
         android:textColor="@color/black"
         android:text="微博文字内容微博文字内容微博文字内容微博文字内容微博文字内容微博文字内容微博文字内容微博文字内容微博文字内容微博文字内容微博文字内容微博文字内容微博文字内容微博文字内容微博文字内容微博文字内容微博文字内容微博文字内容微博文字微博文字内容微博文字内容微博文字内容微博文字内容微博文字内容微博文字内容微博文字内容微博文字内容微博文字内容微博文字内容微博文字内容微博文字内容微博文字内容微博文字内容微博文字内容微博文字内容微博文字内容微博文字内容微博文字微博文字内容微博文字内容微博文字内容微博文字内容微博文字内容微博文字内容微博文字内容微博文字内容微博文字内容微博文字内容微博文字内容微博文字内容微博文字内容微博文字内容微博文字内容微博文字内容微博文字内容微博文字内容微博文字微博文字内容微博文字内容微博文字内容微博文字内容微博文字内容微博文字内容微博文字内容微博文字内容微博文字内容微博文字内容微博文字内容微博文字内容微博文字内容微博文字内容微博文字内容微博文字内容微博文字内容微博文字内容微博文字微博文字内容微博文字内容微博文字内容微博文字内容微博文字内容微博文字内容微博文字内容微博文字内容微博文字内容微博文字内容微博文字内容微博文字内容微博文字内容微博文字内容微博文字内容微博文字内容微博文字内容微博文字内容微博文字微博文字内容微博文字内容微博文字内容微博文字内容微博文字内容微博文字内容微博文字内容微博文字内容微博文字内容微博文字内容微博文字内容微博文字内容微博文字内容微博文字内容微博文字内容微博文字内容微博文字内容微博文字内容微博文字微博文字内容微博文字内容微博文字内容微博文字内容微博文字内容微博文字内容微博文字内容微博文字内容微博文字内容微博文字内容微博文字内容微博文字内容微博文字内容微博文字内容微博文字内容微博文字内容微博文字内容微博文字内容微博文字微博文字内容微博文字内容微博文字内容微博文字内容微博文字内容微博文字内容微博文字内容微博文字内容微博文字内容微博文字内容微博文字内容微博文字内容微博文字内容微博文字内容微博文字内容微博文字内容微博文字内容微博文字内容微博文字微博文字内容微博文字内容微博文字内容微博文字内容微博文字内容微博文字内容微博文字内容微博文字内容微博文字内容微博文字内容微博文字内容微博文字内容微博文字内容微博文字内容微博文字内容微博文字内容微博文字内容微博文字内容微博文字微博文字内容微博文字内容微博文字内容微博文字内容微博文字内容微博文字内容微博文字内容微博文字内容微博文字内容微博文字内容微博文字内容微博文字内容微博文字内容微博文字内容微博文字内容微博文字内容微博文字内容微博文字内容微博文字微博文字内容微博文字内容微博文字内容微博文字内容微博文字内容微博文字内容微博文字内容微博文字内容微博文字内容微博文字内容微博文字内容微博文字内容微博文字内容微博文字内容微博文字内容微博文字内容微博文字内容微博文字内容微博文字"
         android:textSize="16sp" />
 
+        <ImageView
+            android:id="@+id/iv_one_item_recycler"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scaleType="fitXY"
+            android:adjustViewBounds="true"
+            android:src="@drawable/uestc_picture_0"
+            android:paddingRight="25dp"
+            android:paddingLeft="25dp"
+            android:paddingBottom="10dp" />
 
-    <!--    <FrameLayout-->
-    <!--        android:layout_width="wrap_content"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        >-->
-
-    <ImageView
-        android:id="@+id/iv_one_item_recycler"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:scaleType="fitXY"
-        android:adjustViewBounds="true"
-        android:src="@drawable/uestc_picture_0"
-        android:paddingRight="25dp"
-        android:paddingLeft="25dp"
-        android:paddingBottom="10dp" />
-
-    <!--    </FrameLayout>-->
 </LinearLayout>

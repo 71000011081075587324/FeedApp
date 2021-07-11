@@ -1,0 +1,48 @@
+{
+    "datas": [
+        {
+            "id": 12345678,  
+            "created_at": "2021-06-13 21:33",
+            "text": "我赞同",
+            "user": {
+                "id": 10,
+                "screen_name": "搞笑大奇葩",
+                "profile_image_url": "R.drawable.profile_image_0"
+            }
+        },
+        {
+            "id": 12345678,  
+            "created_at": "2021-06-13 21:33",
+            "text": "test_test_test_test_test",
+            "user": {
+                "id": 11,
+                "screen_name": "学生活动中心",
+                "profile_image_url": "R.drawable.profile_image_1"
+            }
+        },
+        {
+            "id": 12345678,  
+            "created_at": "2021-06-13 21:33",
+            "text": "test_test_test_test_test",
+            "user": {
+                "id": 12,
+                "screen_name": "知识大百科",
+                "profile_image_url": "R.drawable.profile_image_2"
+            }
+        },
+        {
+            "id": 12345678,  
+            "created_at": "2021-06-13 21:33",
+            "text": "test_test_test_test_test",
+            "user": {
+                "id": 13,
+                "screen_name": "教务处",
+                "profile_image_url": "R.drawable.profile_image_3"
+            }
+        }
+
+
+    ],
+    "errorCode": 0,
+    "errorMsg": ""
+}

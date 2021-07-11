@@ -1,17 +1,56 @@
 package com.uestc.myapplication.bean;
 
-public class FeedStreamBean {
+import android.os.Parcel;
+import android.os.Parcelable;
 
-    private ArticleData data;
+import java.util.ArrayList;
+import java.util.List;
+
+public class FeedStreamBean implements Parcelable {
+
+
+    private List<ArticleData> datas;
     private int errorCode;
     private String errorMsg;
 
-    public ArticleData getData() {
-        return data;
+    protected FeedStreamBean(Parcel in) {
+        datas = in.createTypedArrayList(ArticleData.CREATOR);
+        errorCode = in.readInt();
+        errorMsg = in.readString();
     }
 
-    public void setData(ArticleData data) {
-        this.data = data;
+
+    public static final Creator<FeedStreamBean> CREATOR = new Creator<FeedStreamBean>() {
+        @Override
+        public FeedStreamBean createFromParcel(Parcel in) {
+            return new FeedStreamBean(in);
+        }
+
+        @Override
+        public FeedStreamBean[] newArray(int size) {
+            return new FeedStreamBean[size];
+        }
+    };
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeTypedList(datas);
+        dest.writeInt(errorCode);
+        dest.writeString(errorMsg);
+    }
+
+
+    public List<ArticleData> getDatas() {
+        return datas;
+    }
+
+    public void setDatas(List<ArticleData> datas) {
+        this.datas = datas;
     }
 
     public int getErrorCode() {
@@ -31,7 +70,8 @@ public class FeedStreamBean {
     }
 
 
-    public static class ArticleData{
+
+    public static class ArticleData implements Parcelable{
 
         private int id;
         private String created_at;
@@ -41,10 +81,57 @@ public class FeedStreamBean {
         private int comments_count;
         private int like_count;
         private String thumbnail_pic;
-        private String original_pic;
-        private Object pic_ids;
+//        private String original_pic;
+        private String pic_ids;
         private String video;
-        private UserBean userData;
+        private UserBean user;
+
+
+        protected ArticleData(Parcel in) {
+            id = in.readInt();
+            created_at = in.readString();
+            text = in.readString();
+            source = in.readString();
+            favorited = in.readByte() != 0;
+            comments_count = in.readInt();
+            like_count = in.readInt();
+            thumbnail_pic = in.readString();
+            pic_ids = in.readString();
+            video = in.readString();
+            user = in.readParcelable(UserBean.class.getClassLoader());
+        }
+
+        @Override
+        public void writeToParcel(Parcel dest, int flags) {
+            dest.writeInt(id);
+            dest.writeString(created_at);
+            dest.writeString(text);
+            dest.writeString(source);
+            dest.writeByte((byte) (favorited ? 1 : 0));
+            dest.writeInt(comments_count);
+            dest.writeInt(like_count);
+            dest.writeString(thumbnail_pic);
+            dest.writeString(pic_ids);
+            dest.writeString(video);
+            dest.writeParcelable(user, flags);
+        }
+
+        @Override
+        public int describeContents() {
+            return 0;
+        }
+
+        public static final Creator<ArticleData> CREATOR = new Creator<ArticleData>() {
+            @Override
+            public ArticleData createFromParcel(Parcel in) {
+                return new ArticleData(in);
+            }
+
+            @Override
+            public ArticleData[] newArray(int size) {
+                return new ArticleData[size];
+            }
+        };
 
         public int getId () {
             return id;
@@ -110,19 +197,19 @@ public class FeedStreamBean {
             this.thumbnail_pic = thumbnail_pic;
         }
 
-        public String getOriginal_pic () {
-            return original_pic;
-        }
+//        public String getOriginal_pic () {
+//            return original_pic;
+//        }
+//
+//        public void setOriginal_pic (String original_pic){
+//            this.original_pic = original_pic;
+//        }
 
-        public void setOriginal_pic (String original_pic){
-            this.original_pic = original_pic;
-        }
-
-        public Object getPic_ids () {
+        public String getPic_ids () {
             return pic_ids;
         }
 
-        public void setPic_ids (Object pic_ids){
+        public void setPic_ids (String pic_ids){
             this.pic_ids = pic_ids;
         }
 
@@ -134,12 +221,12 @@ public class FeedStreamBean {
             this.video = video;
         }
 
-        public Object  getUserData() {
-            return userData;
+        public UserBean getUser() {
+            return user;
         }
 
-        public void setUserData(UserBean userData){
-            this.userData = userData;
+        public void setUser(UserBean user){
+            this.user = user;
         }
 
 
@@ -151,12 +238,44 @@ public class FeedStreamBean {
          * "friended": false
          * }
          */
-        public static class UserBean {
+        public static class UserBean implements Parcelable{
 
             private int user_id;
             private String screen_name;
             private String profile_image_url;
             private boolean friended;
+
+            protected UserBean(Parcel in) {
+                user_id = in.readInt();
+                screen_name = in.readString();
+                profile_image_url = in.readString();
+                friended = in.readByte() != 0;
+            }
+
+            public static final Creator<UserBean> CREATOR = new Creator<UserBean>() {
+                @Override
+                public UserBean createFromParcel(Parcel in) {
+                    return new UserBean(in);
+                }
+
+                @Override
+                public UserBean[] newArray(int size) {
+                    return new UserBean[size];
+                }
+            };
+
+            @Override
+            public int describeContents() {
+                return 0;
+            }
+
+            @Override
+            public void writeToParcel(Parcel dest, int flags) {
+                dest.writeInt(user_id);
+                dest.writeString(screen_name);
+                dest.writeString(profile_image_url);
+                dest.writeByte((byte) (friended ? 1 : 0));
+            }
 
             public int getUser_id() {
                 return user_id;
@@ -189,6 +308,8 @@ public class FeedStreamBean {
             public void setFriended(boolean friended) {
                 this.friended = friended;
             }
+
+
         }
 
     }

@@ -14,18 +14,25 @@ import com.google.android.material.tabs.TabLayout;
 import com.uestc.myapplication.Adapter.HomeFragmentAdapter;
 import com.uestc.myapplication.R;
 import com.uestc.myapplication.base.fragment.BaseFragment;
-import com.uestc.myapplication.contract.Home.HomeContract;
+import com.uestc.myapplication.base.presenter.BasePresenter;
+import com.uestc.myapplication.bean.FeedStreamBean;
+import com.uestc.myapplication.contract.Home.HomeFriendContract;
+import com.uestc.myapplication.model.HomeFriendModel;
+import com.uestc.myapplication.presenter.HomeFriendPresenter;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class HomeFragment extends BaseFragment implements HomeContract.IHomeView {
+public class HomeFragment extends BaseFragment {
 
-    private HomeContract.IHomePresenter mHomePresenter = null;
     private final int VIEWPAGERCOUNT = 2;
 
     private ViewPager mViewPager;
     private TabLayout mTabLayout;
+
+    private HomeFriendContract.IHomePresenter mIHomePresenter;
+
+    private HomeFriendFragment mHomeFriendFragment;
 
     public HomeFragment(Context context){
         mContext = context;
@@ -34,7 +41,7 @@ public class HomeFragment extends BaseFragment implements HomeContract.IHomeView
     @Override
     protected View initView() {
         List<BaseFragment> fragments = new ArrayList<BaseFragment>();
-        fragments.add(new HomeFriendFragment(mContext));
+        fragments.add(mHomeFriendFragment);
         fragments.add(new HomeRecommendFragment(mContext));
 
         mView = View.inflate(mContext, R.layout.fragment_home,null);
@@ -71,7 +78,10 @@ public class HomeFragment extends BaseFragment implements HomeContract.IHomeView
     public View onCreateView(@NonNull @org.jetbrains.annotations.NotNull LayoutInflater inflater,
                              @Nullable @org.jetbrains.annotations.Nullable ViewGroup container,
                              @Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
-
+        HomeFriendModel homeFriendModel = HomeFriendModel.getInstance();
+        mHomeFriendFragment = new HomeFriendFragment(mContext);
+        mIHomePresenter = new HomeFriendPresenter(homeFriendModel, mHomeFriendFragment);
+        mHomeFriendFragment.setPresenter((BasePresenter) mIHomePresenter);
         return initView();
     }
 
@@ -85,32 +95,34 @@ public class HomeFragment extends BaseFragment implements HomeContract.IHomeView
         super.onActivityCreated(savedInstanceState);
     }
 
-    @Override
-    public void showLoading() {
-
-    }
-
-    @Override
-    public void hideLoading() {
-
-    }
-
-    @Override
-    public void showError() {
-
-    }
-
-    @Override
-    public void setPresenter(Object presenter) {
-        mHomePresenter = (HomeContract.IHomePresenter)presenter;
-    }
 
 
-    public void dataInit() {
-        mDataInit = true;
-    }
 
-    public boolean isDataInit() {
-        return mDataInit;
-    }
+//    @Override
+//    public void showLoading() {
+//
+//    }
+//
+//    @Override
+//    public void hideLoading() {
+//
+//    }
+//
+//    @Override
+//    public void showError() {
+//
+//    }
+
+
+//
+//    public void dataInit() {
+//        mDataInit = true;
+//    }
+//
+//    public boolean isDataInit() {
+//        return mDataInit;
+//    }
+
+
+
 }

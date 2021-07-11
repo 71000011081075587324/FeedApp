@@ -39,7 +39,7 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
-            android:text="微博正文"
+            android:text="正文"
             android:textColor="@color/black"
             android:textSize="20dp">
 
