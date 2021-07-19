@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.SimpleItemAnimator;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 import androidx.viewpager.widget.ViewPager;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
@@ -48,6 +49,7 @@ public class HomeDetailActivity extends BaseActivity implements View.OnClickList
     private LinearLayout mLinearLayoutLike;
     private ImageView mImageViewLike;
     private TextView mTextViewLikeCount;
+    private ImageView mImageViewOneImage;
 
     private FeedStreamBean.ArticleData mDatas;
     private int mPosition;
@@ -192,11 +194,13 @@ public class HomeDetailActivity extends BaseActivity implements View.OnClickList
         if(mDatas.getPic_ids().toString().split(",").length < 2){
             mIncludeMore.setVisibility(View.GONE);
             mImageViewProfile = mIncludeOne.findViewById(R.id.iv_profile);
+            mImageViewOneImage = mIncludeOne.findViewById(R.id.iv_one_item_recycler);
 
             mTextViewName = findViewById(R.id.tv_name);
             mTextViewTime = findViewById(R.id.tv_time);
             mTextViewModel = findViewById(R.id.tv_model);
             mTextViewArticle = findViewById(R.id.tv_article);
+
         }else{
             mIncludeOne.setVisibility(View.GONE);
             mImageRecyclerAdapter = new ImageRecyclerAdapter(this, mDatas.getPic_ids().toString().split(",").length);
@@ -314,6 +318,7 @@ public class HomeDetailActivity extends BaseActivity implements View.OnClickList
 
     private void initClickListener(){
         mImageViewExit.setOnClickListener(this);
+        mImageViewOneImage.setOnClickListener(this);
     }
 
     @Override
@@ -321,6 +326,13 @@ public class HomeDetailActivity extends BaseActivity implements View.OnClickList
         switch (v.getId()){
              case R.id.btn_title_bar_exit:
                 finish();
+                break;
+            case R.id.iv_one_item_recycler:
+                Bundle bundle = new Bundle();
+                bundle.putInt("imageCount",mDatas.getPic_ids().toString().split(",").length);
+                Intent intent = new Intent(this, ImageShowActivity.class);
+                intent.putExtras(bundle);
+                startActivity(intent);
                 break;
         }
     }

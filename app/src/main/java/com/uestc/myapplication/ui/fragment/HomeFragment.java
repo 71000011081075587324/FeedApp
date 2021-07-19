@@ -95,34 +95,4 @@ public class HomeFragment extends BaseFragment {
         super.onActivityCreated(savedInstanceState);
     }
 
-
-
-
-//    @Override
-//    public void showLoading() {
-//
-//    }
-//
-//    @Override
-//    public void hideLoading() {
-//
-//    }
-//
-//    @Override
-//    public void showError() {
-//
-//    }
-
-
-//
-//    public void dataInit() {
-//        mDataInit = true;
-//    }
-//
-//    public boolean isDataInit() {
-//        return mDataInit;
-//    }
-
-
-
 }

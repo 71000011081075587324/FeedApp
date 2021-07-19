@@ -26,6 +26,7 @@ import com.uestc.myapplication.Custom.TailTextView;
 import com.uestc.myapplication.R;
 import com.uestc.myapplication.bean.FeedStreamBean;
 import com.uestc.myapplication.ui.activity.HomeDetailActivity;
+import com.uestc.myapplication.ui.activity.ImageShowActivity;
 import com.uestc.myapplication.utils.SharedPreferencesUtils;
 
 import org.jetbrains.annotations.NotNull;
@@ -234,6 +235,15 @@ public class HomeFriendRecyclerAdapter extends RecyclerView.Adapter<RecyclerView
                 ((ImageOneViewHolder) holder).mViewDecoration.setVisibility(View.VISIBLE);
             }
 
+
+            ((ImageOneViewHolder) holder).mImageView.setOnClickListener(v -> {
+                bundle.putInt("imageCount",mDatas.get(position).getPic_ids().toString().split(",").length);
+                Intent intent = new Intent(mContext, ImageShowActivity.class);
+                intent.putExtras(bundle);
+                mContext.startActivity(intent);
+            });
+
+            //点赞相关逻辑
             ((ImageOneViewHolder) holder).mLinearLayoutLike.setOnClickListener(v -> {
                 if(isLike){
                     isLike = false;
@@ -263,6 +273,7 @@ public class HomeFriendRecyclerAdapter extends RecyclerView.Adapter<RecyclerView
             ((Activity)mContext).startActivityForResult(intent,KEY_ARTICLE);
 //            ((Activity)mContext).startActivityForResult(intent,KEY_ARTICLE,bundle);
         });
+
 
 
     }

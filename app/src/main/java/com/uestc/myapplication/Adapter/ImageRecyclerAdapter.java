@@ -1,7 +1,9 @@
 package com.uestc.myapplication.Adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
+import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +15,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.uestc.myapplication.R;
+import com.uestc.myapplication.ui.activity.ImageShowActivity;
+import com.uestc.myapplication.ui.fragment.ImageShowFragment;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -47,7 +51,14 @@ public class ImageRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.View
 
     @Override
     public void onBindViewHolder(@NonNull @NotNull RecyclerView.ViewHolder holder, int position) {
-
+        ((ImageMoreViewHolder)holder).mImageView.setOnClickListener(v -> {
+            Bundle bundle = new Bundle();
+            bundle.putInt("imageCount", mImageCount);
+            bundle.putInt("position", position);
+            Intent intent = new Intent(mContext, ImageShowActivity.class);
+            intent.putExtras(bundle);
+            mContext.startActivity(intent);
+        });
     }
 
 

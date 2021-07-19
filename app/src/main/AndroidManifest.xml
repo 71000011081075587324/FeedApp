@@ -12,8 +12,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Feedapp">
-        <activity android:name=".ui.activity.HomeDetailActivity"
+        <activity android:name=".ui.activity.ImageShowActivity"
             android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.activity.HomeDetailActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".ui.activity.MainActivity"
             android:screenOrientation="portrait" />
