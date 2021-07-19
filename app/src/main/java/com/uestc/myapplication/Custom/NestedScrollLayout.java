@@ -55,7 +55,8 @@ public class NestedScrollLayout extends NestedScrollView {
                      * scrollY == getChildAt(0).getMeasuredHeight() - v.getMeasuredHeight()即滚动到顶部了
                      */
                     //判断NestedScrollView是否滚动到顶部，若滚动到顶部，判断子控件是否需要继续滚动滚动
-                    if (scrollY == ((ViewGroup)getChildAt(0)).getChildAt(0).getMeasuredHeight() || scrollY == ((ViewGroup)getChildAt(0)).getChildAt(1).getMeasuredHeight() ) {
+                    if (scrollY == ((ViewGroup)getChildAt(0)).getChildAt(0).getMeasuredHeight() ||
+                            scrollY == ((ViewGroup)getChildAt(0)).getChildAt(1).getMeasuredHeight() ) {
                         dispatchChildFling();
                     }
                     //累计自身滚动的距离
@@ -89,12 +90,12 @@ public class NestedScrollLayout extends NestedScrollView {
     @Override
     protected void onFinishInflate() {
         super.onFinishInflate();
-        Log.e(getClass().getSimpleName(), "onFinishInflate()" + String.valueOf(getChildCount()));
-        Log.e(getClass().getSimpleName(),"onFinishInflate()"  + String.valueOf(((ViewGroup)getChildAt(0)).getChildCount()));
-        Log.e(getClass().getSimpleName(), "onFinishInflate()" + String.valueOf(getChildCount()));
-        Log.e(getClass().getSimpleName(),"onFinishInflate()"  + String.valueOf(((ViewGroup)getChildAt(0)).getChildAt(0)));
-        Log.e(getClass().getSimpleName(),"onFinishInflate()"  + String.valueOf(((ViewGroup)getChildAt(0)).getChildAt(1)));
-        Log.e(getClass().getSimpleName(),"onFinishInflate()"  + String.valueOf(((ViewGroup)getChildAt(0)).getChildAt(2)));
+//        Log.e(getClass().getSimpleName(), "onFinishInflate()" + String.valueOf(getChildCount()));
+//        Log.e(getClass().getSimpleName(),"onFinishInflate()"  + String.valueOf(((ViewGroup)getChildAt(0)).getChildCount()));
+//        Log.e(getClass().getSimpleName(), "onFinishInflate()" + String.valueOf(getChildCount()));
+//        Log.e(getClass().getSimpleName(),"onFinishInflate()"  + String.valueOf(((ViewGroup)getChildAt(0)).getChildAt(0)));
+//        Log.e(getClass().getSimpleName(),"onFinishInflate()"  + String.valueOf(((ViewGroup)getChildAt(0)).getChildAt(1)));
+//        Log.e(getClass().getSimpleName(),"onFinishInflate()"  + String.valueOf(((ViewGroup)getChildAt(0)).getChildAt(2)));
         mHeadViewFirst = (ViewGroup) ((ViewGroup) getChildAt(0)).getChildAt(0);
         mHeadViewSecond = (ViewGroup) ((ViewGroup) getChildAt(0)).getChildAt(1);
         mContentView = (ViewGroup) ((ViewGroup) getChildAt(0)).getChildAt(2);
@@ -103,32 +104,33 @@ public class NestedScrollLayout extends NestedScrollView {
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-        Log.e(getClass().getSimpleName(), "onMeasure()" + String.valueOf(getChildCount()));
-        Log.e(getClass().getSimpleName(),"onMeasure()"  + String.valueOf(((ViewGroup)getChildAt(0)).getChildCount()));
-
-        Log.e(getClass().getSimpleName(),"onMeasure()"  + String.valueOf((ViewGroup)((ViewGroup)getChildAt(0)).getChildAt(0)));
-        Log.e(getClass().getSimpleName(),"onMeasure()"  + String.valueOf(((ViewGroup)getChildAt(0)).getChildAt(1)));
-        Log.e(getClass().getSimpleName(),"onMeasure()"  + String.valueOf(((ViewGroup)getChildAt(0)).getChildAt(2)));
-
-        Log.e(getClass().getSimpleName(),String.valueOf(((ViewGroup)getChildAt(0)).getChildAt(0))  + ((ViewGroup)getChildAt(0)).getChildAt(0).getMeasuredHeight());
-        Log.e(getClass().getSimpleName(),String.valueOf(((ViewGroup)getChildAt(0)).getChildAt(1)) + ((ViewGroup)getChildAt(0)).getChildAt(1).getMeasuredHeight());
-        Log.e(getClass().getSimpleName(),String.valueOf(((ViewGroup)getChildAt(0)).getChildAt(2)) + ((ViewGroup)getChildAt(0)).getChildAt(2).getMeasuredHeight());
-        Log.e(getClass().getSimpleName(),String.valueOf(getMeasuredHeight()));
+//        Log.e(getClass().getSimpleName(), "onMeasure()" + String.valueOf(getChildCount()));
+//        Log.e(getClass().getSimpleName(),"onMeasure()"  + String.valueOf(((ViewGroup)getChildAt(0)).getChildCount()));
+//
+//        Log.e(getClass().getSimpleName(),"onMeasure()"  + String.valueOf((ViewGroup)((ViewGroup)getChildAt(0)).getChildAt(0)));
+//        Log.e(getClass().getSimpleName(),"onMeasure()"  + String.valueOf(((ViewGroup)getChildAt(0)).getChildAt(1)));
+//        Log.e(getClass().getSimpleName(),"onMeasure()"  + String.valueOf(((ViewGroup)getChildAt(0)).getChildAt(2)));
+//
+//        Log.e(getClass().getSimpleName(),String.valueOf(((ViewGroup)getChildAt(0)).getChildAt(0))  + ((ViewGroup)getChildAt(0)).getChildAt(0).getMeasuredHeight());
+//        Log.e(getClass().getSimpleName(),String.valueOf(((ViewGroup)getChildAt(0)).getChildAt(1)) + ((ViewGroup)getChildAt(0)).getChildAt(1).getMeasuredHeight());
+//        Log.e(getClass().getSimpleName(),String.valueOf(((ViewGroup)getChildAt(0)).getChildAt(2)) + ((ViewGroup)getChildAt(0)).getChildAt(2).getMeasuredHeight());
+//        Log.e(getClass().getSimpleName(),String.valueOf(getMeasuredHeight()));
 
         //第一个要点：顶部悬浮效果
         //解决方式：将内容布局的高度设置为NestedScrollView的高度，即滑到顶了，自然就固定在顶部了
+        //设置 mContent布局 高度为NestedScrollView的高度，此处极为ViewPager的TabLayout + View里的Fragment的总高度
         ViewGroup.LayoutParams layoutParams = mContentView.getLayoutParams();
         layoutParams.height = getMeasuredHeight();
         mContentView.setLayoutParams(layoutParams);
 
-        Log.e(getClass().getSimpleName(),"onMeasure()"  + String.valueOf((ViewGroup)((ViewGroup)getChildAt(0)).getChildAt(0)));
-        Log.e(getClass().getSimpleName(),"onMeasure()"  + String.valueOf(((ViewGroup)getChildAt(0)).getChildAt(1)));
-        Log.e(getClass().getSimpleName(),"onMeasure()"  + String.valueOf(((ViewGroup)getChildAt(0)).getChildAt(2)));
-
-        Log.e(getClass().getSimpleName(),String.valueOf(((ViewGroup)getChildAt(0)).getChildAt(0))  + ((ViewGroup)getChildAt(0)).getChildAt(0).getMeasuredHeight());
-        Log.e(getClass().getSimpleName(),String.valueOf(((ViewGroup)getChildAt(0)).getChildAt(1)) + ((ViewGroup)getChildAt(0)).getChildAt(1).getMeasuredHeight());
-        Log.e(getClass().getSimpleName(),String.valueOf(((ViewGroup)getChildAt(0)).getChildAt(2)) + ((ViewGroup)getChildAt(0)).getChildAt(2).getMeasuredHeight());
-        Log.e(getClass().getSimpleName(),String.valueOf(getMeasuredHeight()));
+//        Log.e(getClass().getSimpleName(),"onMeasure()"  + String.valueOf((ViewGroup)((ViewGroup)getChildAt(0)).getChildAt(0)));
+//        Log.e(getClass().getSimpleName(),"onMeasure()"  + String.valueOf(((ViewGroup)getChildAt(0)).getChildAt(1)));
+//        Log.e(getClass().getSimpleName(),"onMeasure()"  + String.valueOf(((ViewGroup)getChildAt(0)).getChildAt(2)));
+//
+//        Log.e(getClass().getSimpleName(),String.valueOf(((ViewGroup)getChildAt(0)).getChildAt(0))  + ((ViewGroup)getChildAt(0)).getChildAt(0).getMeasuredHeight());
+//        Log.e(getClass().getSimpleName(),String.valueOf(((ViewGroup)getChildAt(0)).getChildAt(1)) + ((ViewGroup)getChildAt(0)).getChildAt(1).getMeasuredHeight());
+//        Log.e(getClass().getSimpleName(),String.valueOf(((ViewGroup)getChildAt(0)).getChildAt(2)) + ((ViewGroup)getChildAt(0)).getChildAt(2).getMeasuredHeight());
+//        Log.e(getClass().getSimpleName(),String.valueOf(getMeasuredHeight()));
     }
 
     /**
@@ -171,7 +173,8 @@ public class NestedScrollLayout extends NestedScrollView {
 
     /**
      * 要点三：惯性滑动，父控件在滑动完成后，在通知子控件滑动,此时不是嵌套滚动
-     * 解决方法:1.记录惯性滑动的速度
+     * 解决方法:
+     * 1.记录惯性滑动的速度
      * 2.将速度转化成距离
      * 3.计算子控件应该滑动的距离 = 惯性滑动距离 - 已滑距离
      * 4.将剩余滑动距离转化成速度交给子控件进行惯性滑动

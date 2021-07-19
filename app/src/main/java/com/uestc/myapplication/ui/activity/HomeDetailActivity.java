@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -17,7 +18,6 @@ import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 import com.bumptech.glide.request.RequestOptions;
 import com.google.android.material.tabs.TabLayout;
 import com.uestc.myapplication.Adapter.HomeDetailFragmentAdapter;
-import com.uestc.myapplication.Adapter.HomeFriendRecyclerAdapter;
 import com.uestc.myapplication.Adapter.ImageRecyclerAdapter;
 import com.uestc.myapplication.R;
 import com.uestc.myapplication.base.activity.BaseActivity;
@@ -25,8 +25,7 @@ import com.uestc.myapplication.base.fragment.BaseFragment;
 import com.uestc.myapplication.bean.FeedStreamBean;
 import com.uestc.myapplication.ui.fragment.DetailCommentFragment;
 import com.uestc.myapplication.ui.fragment.DetailPraiseFragment;
-
-import org.w3c.dom.Text;
+import com.uestc.myapplication.utils.SharedPreferencesUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,9 +45,15 @@ public class HomeDetailActivity extends BaseActivity implements View.OnClickList
     private TextView mTextViewTime;
     private TextView mTextViewModel;
     private TextView mTextViewArticle;
+    private LinearLayout mLinearLayoutLike;
+    private ImageView mImageViewLike;
+    private TextView mTextViewLikeCount;
 
     private FeedStreamBean.ArticleData mDatas;
     private int mPosition;
+    private Boolean isLike;
+
+    private SharedPreferencesUtils mSharedPreferencesUtils;
 
 //    ViewGroup rlTitle;
 //    ViewGroup rlButtom;
@@ -64,6 +69,7 @@ public class HomeDetailActivity extends BaseActivity implements View.OnClickList
         supportRequestWindowFeature(Window.FEATURE_NO_TITLE);   //去掉系统设置默认标题栏
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_detail);
+        mSharedPreferencesUtils = SharedPreferencesUtils.getInstance(this);
         initData();
         initView();
         initClickListener();
@@ -168,6 +174,9 @@ public class HomeDetailActivity extends BaseActivity implements View.OnClickList
         Bundle bundle = getIntent().getBundleExtra("Detail");
         mDatas = bundle.getParcelable("data");
         mPosition = bundle.getInt("position");
+
+        isLike = mSharedPreferencesUtils.readBoolean("isLike");
+//        isLike = bundle.getBoolean("isLike");
     }
 
     private void initView(){
@@ -175,6 +184,9 @@ public class HomeDetailActivity extends BaseActivity implements View.OnClickList
         mIncludeMore = findViewById(R.id.include_text_home_friend_more_image);
         mImageViewExit = findViewById(R.id.btn_title_bar_exit);
         mRecyclerView = findViewById(R.id.recycler_view_image);
+        mLinearLayoutLike = findViewById(R.id.ll_like_detail);
+        mImageViewLike = findViewById(R.id.iv_like_detail);
+        mTextViewLikeCount = findViewById(R.id.tv_like_count_detail);
 
 
         if(mDatas.getPic_ids().toString().split(",").length < 2){
@@ -277,6 +289,26 @@ public class HomeDetailActivity extends BaseActivity implements View.OnClickList
 //                .apply(options)
 //                .into(mImageViewProfile);
 
+        if(isLike){
+            mImageViewLike.setImageResource(R.drawable.praise_press);
+            mTextViewLikeCount.setText(mDatas.getLike_count() + 1 + "");
+        }else{
+            mImageViewLike.setImageResource(R.drawable.praise);
+            mTextViewLikeCount.setText(mDatas.getLike_count() + "");
+        }
+
+        mLinearLayoutLike.setOnClickListener(v -> {
+            if(isLike){
+                isLike = false;
+                mImageViewLike.setImageResource(R.drawable.praise);
+                mTextViewLikeCount.setText(mDatas.getLike_count() + "");
+            }else{
+                isLike = true;
+                mImageViewLike.setImageResource(R.drawable.praise_press);
+                mTextViewLikeCount.setText(mDatas.getLike_count() + 1 + "");
+            }
+            mSharedPreferencesUtils.putBoolean("isLike",isLike);
+        });
 
     }
 

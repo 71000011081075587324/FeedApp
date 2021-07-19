@@ -19,8 +19,8 @@ import com.uestc.myapplication.base.fragment.BaseFragment;
 import com.uestc.myapplication.base.presenter.BasePresenter;
 import com.uestc.myapplication.bean.FeedStreamBean;
 import com.uestc.myapplication.contract.Home.HomeFriendContract;
+import com.uestc.myapplication.presenter.HomeFriendPresenter;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class HomeFriendFragment extends BaseFragment implements HomeFriendContract.IHomeView{
@@ -29,7 +29,8 @@ public class HomeFriendFragment extends BaseFragment implements HomeFriendContra
     private HomeFriendRecyclerAdapter mFriendHomeRecyclerAdapter;
     private SmartRefreshLayout mSmartRefreshLayout;
 
-    private HomeFriendContract.IHomePresenter mIHomePresenter;
+//    private HomeFriendContract.IHomePresenter mIHomePresenter;
+    private HomeFriendPresenter mHomeFriendPresenter;
 
 //    public HomeFriendFragment(Context context, List<FeedStreamBean.ArticleData> ArticleList){
 //        mContext = context;
@@ -54,7 +55,7 @@ public class HomeFriendFragment extends BaseFragment implements HomeFriendContra
     public View onCreateView(@NonNull @org.jetbrains.annotations.NotNull LayoutInflater inflater,
                              @Nullable @org.jetbrains.annotations.Nullable ViewGroup container,
                              @Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
-        mIHomePresenter.loadArticle();
+        mHomeFriendPresenter.loadArticle();
         return initView();
     }
 
@@ -73,7 +74,7 @@ public class HomeFriendFragment extends BaseFragment implements HomeFriendContra
         mView = View.inflate(mContext, R.layout.fragment_home_friend,null);
 //        mDatas = new ArrayList<FeedStreamBean.ArticleData>();
 
-        mFriendHomeRecyclerAdapter = new HomeFriendRecyclerAdapter(mContext,mDatas);
+        mFriendHomeRecyclerAdapter = new HomeFriendRecyclerAdapter(this.getContext(),mDatas);
         mRecyclerView = mView.findViewById(R.id.recycler_view_home_friend);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(mContext));
         mRecyclerView.setAdapter(mFriendHomeRecyclerAdapter);
@@ -119,7 +120,7 @@ public class HomeFriendFragment extends BaseFragment implements HomeFriendContra
             Runnable runnable = new Runnable() {
                 @Override
                 public void run() {
-                    mIHomePresenter.refreshTopArticle();
+                    mHomeFriendPresenter.refreshTopArticle();
                     refreshLayout.finishRefresh();
                     mFriendHomeRecyclerAdapter.notifyDataSetChanged();
                 }
@@ -146,7 +147,7 @@ public class HomeFriendFragment extends BaseFragment implements HomeFriendContra
             Runnable runnable = new Runnable() {
                 @Override
                 public void run() {
-                    mIHomePresenter.refreshButtomArticle();
+                    mHomeFriendPresenter.refreshButtomArticle();
                     refreshLayout.finishLoadMore();
                     mFriendHomeRecyclerAdapter.notifyDataSetChanged();
                 }
@@ -176,11 +177,23 @@ public class HomeFriendFragment extends BaseFragment implements HomeFriendContra
 
     @Override
     public void setPresenter(BasePresenter presenter) {
-        mIHomePresenter = (HomeFriendContract.IHomePresenter) presenter;
+//        mIHomePresenter = (HomeFriendContract.IHomePresenter) presenter;
+        mHomeFriendPresenter = (HomeFriendPresenter) presenter;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        mFriendHomeRecyclerAdapter.notifyDataSetChanged();
+    }
 
-//    @Override
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        mHomeFriendPresenter.detachVP();
+    }
+
+    //    @Override
 //    public void dataInit() {
 //
 //        mFriendHomeRecyclerAdapter.notifyDataSetChanged();

@@ -65,12 +65,14 @@
         android:background="#f2f2f2"/>
 
     <LinearLayout
+        android:id="@+id/ll_like_detail"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:gravity="center">
 
-        <ImageButton
+        <ImageView
+            android:id="@+id/iv_like_detail"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:scaleType="centerCrop"
@@ -78,6 +80,7 @@
             android:src="@drawable/praise" />
 
         <TextView
+            android:id="@+id/tv_like_count_detail"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:singleLine="true"
