@@ -34,6 +34,8 @@ public class HomeFragment extends BaseFragment {
 
     private HomeFriendFragment mHomeFriendFragment;
 
+    private HomeRecommendFragment mHomeRecommendFragment;
+
     public HomeFragment(Context context){
         mContext = context;
     }
@@ -42,7 +44,7 @@ public class HomeFragment extends BaseFragment {
     protected View initView() {
         List<BaseFragment> fragments = new ArrayList<BaseFragment>();
         fragments.add(mHomeFriendFragment);
-        fragments.add(new HomeRecommendFragment(mContext));
+        fragments.add(mHomeRecommendFragment);
 
         mView = View.inflate(mContext, R.layout.fragment_home,null);
 
@@ -82,6 +84,11 @@ public class HomeFragment extends BaseFragment {
         mHomeFriendFragment = new HomeFriendFragment(mContext);
         mIHomePresenter = new HomeFriendPresenter(homeFriendModel, mHomeFriendFragment);
         mHomeFriendFragment.setPresenter((BasePresenter) mIHomePresenter);
+
+        mHomeRecommendFragment = new HomeRecommendFragment(mContext);
+        HomeFriendContract.IHomePresenter mIHomePresenter2 = new HomeFriendPresenter(homeFriendModel, mHomeRecommendFragment);
+        mHomeRecommendFragment.setPresenter((BasePresenter) mIHomePresenter2);
+
         return initView();
     }
 

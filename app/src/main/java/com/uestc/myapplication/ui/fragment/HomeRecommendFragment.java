@@ -2,17 +2,35 @@ package com.uestc.myapplication.ui.fragment;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.uestc.myapplication.Adapter.HomeFriendRecyclerAdapter;
 import com.uestc.myapplication.R;
 import com.uestc.myapplication.base.fragment.BaseFragment;
+import com.uestc.myapplication.base.presenter.BasePresenter;
+import com.uestc.myapplication.bean.FeedStreamBean;
+import com.uestc.myapplication.contract.Home.HomeFriendContract;
+import com.uestc.myapplication.presenter.HomeFriendPresenter;
 
-public class HomeRecommendFragment extends BaseFragment {
+import java.util.List;
+
+public class HomeRecommendFragment extends BaseFragment implements HomeFriendContract.IHomeView{
+    private RecyclerView mRecyclerView;     //
+    private List<FeedStreamBean.ArticleData> mDatas;        //
+    private HomeFriendRecyclerAdapter mFriendHomeRecyclerAdapter;       //
+    private SmartRefreshLayout mSmartRefreshLayout;     //
+
+    private HomeFriendPresenter mHomeFriendPresenter;       //
+
     public HomeRecommendFragment(Context context){
         mContext = context;
     }
@@ -31,6 +49,7 @@ public class HomeRecommendFragment extends BaseFragment {
     public View onCreateView(@NonNull @org.jetbrains.annotations.NotNull LayoutInflater inflater,
                              @Nullable @org.jetbrains.annotations.Nullable ViewGroup container,
                              @Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
+        mHomeFriendPresenter.loadArticle();     //
 
         return initView();
     }
@@ -47,8 +66,116 @@ public class HomeRecommendFragment extends BaseFragment {
 
     @Override
     protected View initView() {
-        mView = View.inflate(mContext, R.layout.fragment_home_recommend,null);
+//        mView = View.inflate(mContext, R.layout.fragment_home_recommend,null);
+        mView = View.inflate(mContext, R.layout.fragment_home_friend,null);     //
+
+        mFriendHomeRecyclerAdapter = new HomeFriendRecyclerAdapter(this.getContext(),mDatas);       //
+        mRecyclerView = mView.findViewById(R.id.recycler_view_home_friend);     //
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(mContext));      //
+        mRecyclerView.setAdapter(mFriendHomeRecyclerAdapter);       //
+
+        initRefresh();  //
+
         return mView;
+    }
+
+    private void initRefresh(){
+        mSmartRefreshLayout = mView.findViewById(R.id.smartreference_layout_home_friend);
+
+        //设置 Header 样式
+//        mSmartRefreshLayout.setRefreshHeader();
+
+        //设置 Footer 样式
+//        mSmartRefreshLayout.setRefreshFooter();
+
+        //下拉刷新
+        mSmartRefreshLayout.setOnRefreshListener(refreshLayout -> {
+            refreshLayout.autoRefresh();
+
+//            for(int i = 0; i < 15; i++){
+////                mDatas.add(i ,new FeedStreamBean.ArticleData("refresh" + i + "--" + i));
+//                mDatas.add(null);
+//            }
+
+//            dataInit();
+
+
+            //测试网路延迟
+            Handler handler = new Handler();
+            Runnable runnable = new Runnable() {
+                @Override
+                public void run() {
+                    mHomeFriendPresenter.refreshTopArticle();
+                    refreshLayout.finishRefresh();
+                    mFriendHomeRecyclerAdapter.notifyDataSetChanged();
+                }
+            };
+            handler.postDelayed(runnable,1500);
+
+
+        });
+
+        //上拉加载更多
+        mSmartRefreshLayout.setOnLoadMoreListener(refreshLayout -> {
+            refreshLayout.autoLoadMore();
+
+//            for(int i = 0; i < 15; i++){
+////                mDatas.add(new FeedStreamBean.ArticleData("refresh" + i + "--" + i));
+//                mDatas.add(null);
+//            }
+
+//            dataInit();
+
+
+            //测试网路延迟
+            Handler handler = new Handler();
+            Runnable runnable = new Runnable() {
+                @Override
+                public void run() {
+                    mHomeFriendPresenter.refreshButtomArticle();
+                    refreshLayout.finishLoadMore();
+                    mFriendHomeRecyclerAdapter.notifyDataSetChanged();
+                }
+            };
+            handler.postDelayed(runnable,1500);
+
+        });
+
+    }
+
+    @Override
+    public void loadArticle(List<FeedStreamBean.ArticleData> articleList) {
+        mDatas = articleList;
+    }
+
+    @Override
+    public void refreshTopArticle(List<FeedStreamBean.ArticleData> articleList) {
+        for(int i = 0; i < articleList.size(); i++){
+            mDatas.add(0,articleList.get(articleList.size() - 1 - i));
+        }
+    }
+
+    @Override
+    public void refreshButtomArticle(List<FeedStreamBean.ArticleData> articleList) {
+        mDatas.addAll(articleList);
+    }
+
+    @Override
+    public void setPresenter(BasePresenter presenter) {
+//        mIHomePresenter = (HomeFriendContract.IHomePresenter) presenter;
+        mHomeFriendPresenter = (HomeFriendPresenter) presenter;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        mFriendHomeRecyclerAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        mHomeFriendPresenter.detachVP();
     }
 
 //    @Override
