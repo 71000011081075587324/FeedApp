@@ -107,7 +107,8 @@
             android:layout_height="wrap_content"
             android:text="10"
             android:textSize="15dp"
-            android:layout_gravity="center_vertical">
+            android:layout_gravity="center_vertical"
+            android:textColor="#63000000">
 
         </TextView>
 

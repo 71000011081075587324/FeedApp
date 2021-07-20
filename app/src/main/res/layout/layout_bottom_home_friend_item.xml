@@ -30,7 +30,8 @@
                 android:singleLine="true"
                 android:gravity="center"
                 android:text="12"
-                android:paddingLeft="5dp"/>
+                android:paddingLeft="5dp"
+                android:textColor="#63000000"/>
 
         </LinearLayout>
 
@@ -53,7 +54,8 @@
                 android:layout_height="wrap_content"
                 android:singleLine="true"
                 android:text="13"
-                android:paddingLeft="5dp"/>
+                android:paddingLeft="5dp"
+                android:textColor="#63000000"/>
 
         </LinearLayout>
 
@@ -78,7 +80,8 @@
                 android:layout_height="wrap_content"
                 android:singleLine="true"
                 android:text="14"
-                android:paddingLeft="5dp"/>
+                android:paddingLeft="5dp"
+                android:textColor="#63000000"/>
 
         </LinearLayout>
 
