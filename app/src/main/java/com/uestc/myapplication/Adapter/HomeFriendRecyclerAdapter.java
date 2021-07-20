@@ -48,7 +48,7 @@ public class HomeFriendRecyclerAdapter extends RecyclerView.Adapter<RecyclerView
         mContext = context;
         mDatas = datas;
         mSharedPreferencesUtils = SharedPreferencesUtils.getInstance(mContext);
-        mSharedPreferencesUtils.putBoolean("isLike", isLike);
+//        mSharedPreferencesUtils.putBoolean("isLike", isLike);
     }
 
 
@@ -154,10 +154,10 @@ public class HomeFriendRecyclerAdapter extends RecyclerView.Adapter<RecyclerView
                     ((FriendViewHolder) holder).mImageViewLike.setImageResource(R.drawable.praise_press);
                     ((FriendViewHolder) holder).mTextViewLikeCount.setText(mDatas.get(position).getLike_count() + 1 + "");
                 }
-                mSharedPreferencesUtils.putBoolean("isLike", isLike);
+                mSharedPreferencesUtils.putBoolean("isLike" + mDatas.get(position).getId(), isLike);
 //                bundle.putBoolean("isLike", isLike);
             });
-            if(mSharedPreferencesUtils.readBoolean("isLike")){
+            if(mSharedPreferencesUtils.readBoolean("isLike" + mDatas.get(position).getId())){
                 ((FriendViewHolder) holder).mImageViewLike.setImageResource(R.drawable.praise_press);
                 ((FriendViewHolder) holder).mTextViewLikeCount.setText(mDatas.get(position).getLike_count() + 1 + "");
             }else{
@@ -255,9 +255,9 @@ public class HomeFriendRecyclerAdapter extends RecyclerView.Adapter<RecyclerView
                     ((ImageOneViewHolder) holder).mTextViewLikeCount.setText(mDatas.get(position).getLike_count() + 1 + "");
                 }
 //                bundle.putBoolean("isLike", isLike);
-                mSharedPreferencesUtils.putBoolean("isLike", isLike);
+                mSharedPreferencesUtils.putBoolean("isLike" + mDatas.get(position).getId(), isLike);
             });
-            if(mSharedPreferencesUtils.readBoolean("isLike")){
+            if(mSharedPreferencesUtils.readBoolean( "isLike" + mDatas.get(position).getId())){
                 ((ImageOneViewHolder) holder).mImageViewLike.setImageResource(R.drawable.praise_press);
                 ((ImageOneViewHolder) holder).mTextViewLikeCount.setText(mDatas.get(position).getLike_count() + 1 + "");
             }else{

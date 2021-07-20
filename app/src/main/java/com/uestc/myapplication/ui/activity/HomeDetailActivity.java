@@ -177,7 +177,7 @@ public class HomeDetailActivity extends BaseActivity implements View.OnClickList
         mDatas = bundle.getParcelable("data");
         mPosition = bundle.getInt("position");
 
-        isLike = mSharedPreferencesUtils.readBoolean("isLike");
+        isLike = mSharedPreferencesUtils.readBoolean("isLike" + mDatas.getId());
 //        isLike = bundle.getBoolean("isLike");
     }
 
@@ -200,6 +200,8 @@ public class HomeDetailActivity extends BaseActivity implements View.OnClickList
             mTextViewTime = findViewById(R.id.tv_time);
             mTextViewModel = findViewById(R.id.tv_model);
             mTextViewArticle = findViewById(R.id.tv_article);
+
+            mImageViewOneImage.setOnClickListener(this);
 
         }else{
             mIncludeOne.setVisibility(View.GONE);
@@ -311,14 +313,13 @@ public class HomeDetailActivity extends BaseActivity implements View.OnClickList
                 mImageViewLike.setImageResource(R.drawable.praise_press);
                 mTextViewLikeCount.setText(mDatas.getLike_count() + 1 + "");
             }
-            mSharedPreferencesUtils.putBoolean("isLike",isLike);
+            mSharedPreferencesUtils.putBoolean("isLike" + mDatas.getId(), isLike);
         });
 
     }
 
     private void initClickListener(){
         mImageViewExit.setOnClickListener(this);
-        mImageViewOneImage.setOnClickListener(this);
     }
 
     @Override
@@ -329,7 +330,7 @@ public class HomeDetailActivity extends BaseActivity implements View.OnClickList
                 break;
             case R.id.iv_one_item_recycler:
                 Bundle bundle = new Bundle();
-                bundle.putInt("imageCount",mDatas.getPic_ids().toString().split(",").length);
+                bundle.putInt("imageCount", mDatas.getPic_ids().toString().split(",").length);
                 Intent intent = new Intent(this, ImageShowActivity.class);
                 intent.putExtras(bundle);
                 startActivity(intent);
