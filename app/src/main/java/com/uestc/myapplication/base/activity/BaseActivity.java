@@ -10,6 +10,7 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(@Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
+        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);     //设置状态栏中的字体颜色
         super.onCreate(savedInstanceState);
         Log.e(getClass().getSimpleName(),
                 getClass().getSimpleName() + ":->" +"onCreat()");
